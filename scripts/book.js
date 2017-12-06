@@ -1,4 +1,11 @@
 //book class
+/**
+* Book class
+*@param title - the title of the book
+*@param author - the author of the book
+*@param numberOfPages - the number of pages in teh book
+*@param publishDate - a Javascript date object representing the date the book was published
+*/
 var Book = function (title,author,numberOfPages,publishDate){
 	var time = Date.now();
 	this.id = time*Math.random();
