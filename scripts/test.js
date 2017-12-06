@@ -6,7 +6,7 @@
 * EXPECTED RESULT: true
 */
 
-	//console.log(lib.addBook(new Book("TestTitle","TestAuthor",1000,new Date().now)));
+	console.log(lib.addBook(new Book("TestTitle","TestAuthor",1000,new Date().now)));
 
 /*
 * addBook(book object)
@@ -14,7 +14,7 @@
 * EXPECTED RESULT: false
 */
 
-	//console.log(lib.addBook(new Book("TestTitle","TestAuthor",1000,new Date().now)));
+	console.log(lib.addBook(new Book("TestTitle","TestAuthor",1000,new Date().now)));
 
 /*
 * removeBookByTitle(title)
@@ -22,7 +22,7 @@
 * EXPECTED RESULT: true
 */
 
-	//console.log(lib.removeBookByTitle("TestTitle"));
+	console.log(lib.removeBookByTitle("TestTitle"));
 
 /*
 * removeBookByTitle(title)
@@ -30,7 +30,7 @@
 * EXPECTED RESULT: false
 */
 
-	//console.log(lib.removeBookByTitle("FakeBook"));
+	console.log(lib.removeBookByTitle("FakeBook"));
 
 /*
 * removeBookByAuthor(author)
@@ -38,7 +38,7 @@
 * EXPECTED RESULT: true
 */
 
-	//console.log(lib.removeBookByAuthor("Hunter S. Thompson"));
+	console.log(lib.removeBookByAuthor("Hunter S. Thompson"));
 
 /*
 * removeBookByAuthor(author)
@@ -46,7 +46,7 @@
 * EXPECTED RESULT: false
 */
 
-	//console.log(lib.removeBookByAuthor("Fakey McFakerton"));
+	console.log(lib.removeBookByAuthor("Fakey McFakerton"));
 
 /*
 * getRandomBook()
@@ -54,7 +54,7 @@
 * EXPECTED RESULT: A random book object
 */
 
-	//console.log(lib.getRandomBook());
+	console.log(lib.getRandomBook());
 
 /*
 * getBookByTitle(title)
@@ -63,8 +63,8 @@
 *  if library has titles that include the search string, a array of 0 length if not
 */
 
-	//console.log(lib.getBookByTitle("TH"));
-	//console.log(lib.getBookByTitle("ZZZZZZZZZ"));
+	console.log(lib.getBookByTitle("TH"));
+	console.log(lib.getBookByTitle("ZZZZZZZZZ"));
 
 /*
 * getBooksByAuthor(author)
@@ -73,8 +73,8 @@
 *  if library has titles that include the search string, a array of 0 length if not
 */
 
-	//console.log(lib.getBooksByAuthor("My"));
-	//console.log(lib.getBooksByAuthor("ZZZZZZZZZ"));
+	console.log(lib.getBooksByAuthor("My"));
+	console.log(lib.getBooksByAuthor("ZZZZZZZZZ"));
 
 /*
 * getAuthors()
@@ -82,7 +82,7 @@
 * EXPECTED RESULT: Array of strings
 */
 
-	//console.log(lib.getAuthors());
+	console.log(lib.getAuthors());
 
 /*
 * getRandomAuthorName()
@@ -90,7 +90,7 @@
 * EXPECTED RESULT: string == random author name
 */
 
-	//console.log(lib.getRandomAuthorName());
+	console.log(lib.getRandomAuthorName());
 
 /*
 * addBooks()
@@ -98,7 +98,7 @@
 * EXPECTED RESULT: number of added books
 */
 
-	/*
+
 	var z = [new Book("Fear and Loathing in Las Vegas","Hunter S. Thompson",204,"1998"),
 	new Book("Hell's Angels: A Strange and Terrible Saga","Hunter S. Thompson",295,"2000"),
 	new Book("The Rum Diary","Hunter S. Thompson",224,"Nov 1999"),
@@ -107,7 +107,7 @@
 	new Book("This is the only book not in the library","Paul Hartman",1,Date.now())
 	];
 	console.log(lib.addBooks(z));
-	*/
+
 
 /*
 * search()
@@ -116,7 +116,7 @@
 * EXPECTED RESULT: array with 0 or more book objects
 */
 
-/*
+
 	//search for books with 300 or less pages
 	console.log(lib.search("","",300,""));
 
@@ -128,5 +128,5 @@
 
 	//search for books published before 2010 by authors with 'hun' in thier name and < 220 numberOfPages
 	console.log(lib.search("","",220,"2010"));
-*/
+
 document.getElementById("test").innerHTML = lib.listAllBooks();
