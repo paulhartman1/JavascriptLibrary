@@ -1,5 +1,6 @@
 var Library;
-/*
+
+/**
 * Library constructor
 * @param none
 * book is a book object as defined by its constructor
@@ -16,23 +17,26 @@ var Library;
 		instance = this;
 
 		// if Library data is available
-		// NOTE: what happpens if var t is not there
 		this.retrieveLibrary = function(){
 
 			if (typeof(Storage) !== undefined) {
-				var t = localStorage.getItem("LibraryOfBooks");
-				var tParsed = JSON.parse(t);
-				if(tParsed === null || tParsed.length === 0){
-					this.books = [];
-					return false; // there was nothing in the library
-				} else {
-					this.books = [];
-					for(var i = 0; i < tParsed.length; i++){
-						var  b = new Book(tParsed[i].title, tParsed[i].author, tParsed[i].numberOfPages, new Date(tParsed[i].publishDate));
-						this.addBook(b);
+				try{
+					var t = localStorage.getItem("LibraryOfBooks");
+					var tParsed = JSON.parse(t);
+					if(tParsed === null || tParsed.length === 0){
+						this.books = [];
+						return false; // there was nothing in the library
+					} else {
+						this.books = [];
+						for(var i = 0; i < tParsed.length; i++){
+							var  b = new Book(tParsed[i].title, tParsed[i].author, tParsed[i].numberOfPages, new Date(tParsed[i].publishDate));
+							this.addBook(b);
+						}
 					}
+					return true;
+				} catch (e) {this.books = [];
+
 				}
-				return true;
 			}
 		};
 		// create new [] books, if localStorage === null
@@ -43,48 +47,86 @@ var Library;
 		this.saveState = function(){
 
 			//convert dates to strings first
-			// for(var i = 0; i < this.books.length; i++){
-			// 	this.books[i].publishDate = this.books[i].publishDate;
-			// }
-			if (typeof(Storage) !== "undefined") {
-				var strJSON = JSON.stringify(this.books);
-				localStorage.setItem("LibraryOfBooks",strJSON);
-				return true;
-			} else {
-				return false;
+			for(var i = 0; i < this.books.length; i++){
+				this.books[i].publishDate = this.books[i].publishDate.toString();
+			}
+			try {
+				if (typeof(Storage) !== "undefined") {
+					var strJSON = JSON.stringify(this.books);
+					localStorage.setItem("LibraryOfBooks",strJSON);
+					return true;
+				} else {
+					return false;
+				}
+			} catch(e) {
+				// do not store
 			}
 		};
 	}
 }());
 
-/*
-* Public addBook
-* @params A Book Object
-* @ return true if the Book Object was added to this.books, false if the Book Object was already in the array
-* NOTE Book Objects are considered equal if their title and author match
+
+/**
+* Public verify
+* @param val -  the data to verify
+* @param type - A string representing the type of object val is supposed to be, in relationship to a book object.
+* supported types are title, author, numbmerOfPages, Date, and Book
+* @return  - true if the Book Objectis a valid book object, false if the Book Object has errors in it's parameters
 */
-Library.prototype.addBook = function(book){
-	var bool = false;
-	if(this.books.length === 0){
-		this.books.push(book);
-	} else { // check books[] for existing title
-		for(var i = 0; i < this.books.length; i++){
-			if (this.books[i].title == book.title && this.books[i].author === book.author){
-				//matching book found. Return false and do not add book to Library
-				return bool;
-			}
+Library.prototype.verify = function(val,type){
+	var str = type.toLowerCase();
+	switch (str) {
+		case 'book':
+		if( typeof(val.title) === 'string' && typeof(val.author) === 'string' && typeof(val.numberOfPages) === 'number' && typeof(val.publishDate === 'Object')){
+			return true;
+		} else {
+			return false;
 		}
-		// no match found - add the book to the Library and return true
-		this.books.push(book);
-		bool = true;
+		break;
+		case 'title':
+		case 'author':
+		return typeof(val) === 'string' ? true : false;
+		break;
+		case 'numberofpages':
+		return typeof(val) === 'number' ? true : false;
+		default:
+		return false;
 	}
-	return bool;
+
 };
 
-/*
+/**
+* Public addBook
+* @param book -  A Book Object
+* @return  - true if the Book Object was added to this.books, false if the Book Object was already in the array
+* NOTE Book Objects are considered equal if their title and author match
+*/
+
+Library.prototype.addBook = function(book){
+	if(this.verify(book,"book")){
+		if(this.books.length === 0){
+			this.books.push(book);
+		} else { // check books[] for existing title
+			for(var i = 0; i < this.books.length; i++){
+				if (this.books[i].title == book.title && this.books[i].author === book.author){
+					//matching book found. Return false and do not add book to Library
+					return false;
+				}
+			}
+			// no match found - add the book to the Library and return true
+			this.books.push(book);
+			return true;
+		}
+	} else {
+		console.log(book + " can not be added. Check parameters");
+		return false;
+	}
+};
+
+/**
 * Public addBooks
-* @params array of book objects
-* @ return  true if any Book Object was added to this.books, false if all Book Objects were already in the array
+*@param array of book objects
+*@return  true if any Book Object was added to this.books, false if all Book Objects were already in the array
 *
 */
 Library.prototype.addBooks = function(books) {
@@ -111,7 +153,7 @@ Library.prototype.getAuthors = function(){
 	max = this.books.length;
 
 	for(i; i < max; i++){
-		if(!authors.includes(this.books[i].author)){
+		if(!authors.indexOf(this.books[i].author) === -1){
 			authors.push(this.books[i].author);
 		}
 	}
@@ -140,39 +182,48 @@ Library.prototype.listAllBooks = function(){
 * NOTE: will return multiple books even with complete title e.g. args("A") will return "A Christmas Carol" and "Naked Lunch", and "A"
 */
 Library.prototype.getBookByTitle = function(title){
-	var i = 0,
-	max = this.books.length,
-	returnArr = [];
+	if(this.verify(title,"title")){
+		var i = 0,
+		max = this.books.length,
+		returnArr = [];
 
-	for(i; i < max; i++){
-		if(this.books[i].title.toLowerCase().includes(title.toLowerCase())){
-			returnArr.push(this.books[i]);
+		for(i; i < max; i++){
+			if(this.books[i].title.toLowerCase().indexOf(title.toLowerCase()) !== -1){
+				returnArr.push(this.books[i]);
+			}
 		}
+		return returnArr;
+	} else {
+		console.log("Title error. Check parameters");
+		return false;
 	}
-	return returnArr;
 };
-/*
+/**
 * Public getBooksByAuthor
-* @params
-* @ return
+* @param author - the Author name being searched for
+* @return an array of authors names
 * this needs some work
 */
 Library.prototype.getBooksByAuthor = function(author){
-	var i = 0,
-	max = this.books.length,
-	returnArr = [];
-	for(i; i < max; i++){
-		if(this.books[i].author.toLowerCase().includes(author.toLowerCase())) {
-			returnArr.push(this.books[i]);
-		}
+	if(this.verify(author,"author")){
+		var i = 0,
+		max = this.books.length,
+		returnArr = [];
+		for(i; i < max; i++){
+			if(this.books[i].author.toLowerCase().indexOf(author.toLowerCase()) !== -1) {
+				returnArr.push(this.books[i]);
+			}
+		} // end for
+	} else {
+		console.log("Author error. Check parameters");
 	}
 	return returnArr;
-}
+};
 
-/*
+/**
 * Public getRandomAuthorName
-* @params none
-* @ return null if no books in the Library, otherwise returns a random author name
+* @param none
+* @return null if no books in the Library, otherwise returns a random author name
 */
 Library.prototype.getRandomAuthorName = function(){
 	var rndmAuthor = null,
@@ -183,10 +234,10 @@ Library.prototype.getRandomAuthorName = function(){
 	return rndmAuthor;
 };
 
-/*
+/**
 * Public getRandomBook
-* @params none
-* @ returns a book object if at least one exists, otherwise returns null
+* @param none
+* @return a book object if at least one exists, otherwise returns null
 */
 Library.prototype.getRandomBook = function(){
 	var len = this.books.length;
@@ -196,10 +247,10 @@ Library.prototype.getRandomBook = function(){
 	return this.books[Math.floor((Math.random() * len))];
 };
 
-/*
+/**
 * Public removeBookByTitle
-* @params title of book to be removed
-* @ return true if book has been removed, false if no book matched
+* @param title of book to be removed
+* @return true if book has been removed, false if no book matched
 */
 Library.prototype.removeBookByTitle = function(title){
 
@@ -216,9 +267,10 @@ Library.prototype.removeBookByTitle = function(title){
 	}
 	return removed;
 };
-/*
+
+/**
 * Public removeBookByAuthor
-* @params title of book to be removed
+* @param author - The name of the author of book() to be removed
 * @ return true if book has been removed, false if no book matched
 * NOTE assumes author is unique or removes all books by author?
 */
@@ -244,12 +296,11 @@ Library.prototype.removeBookByAuthor = function(author){
 }
 };
 
-/*
+/**
 * Public search
-* @params four strings --> title, author, numberOfPages, publishDate, (optional) year range in +/- number of years
+*@param four strings --> title, author, numberOfPages, publishDate, (optional) year range in +/- number of years
 * titles and authors will return a match if the argument is a substring of the book property
 * numberOfPages will return a match if the argument is <= the book property
-* publishDate will return a match if the argument is exact -> NOTE FIX THIS
 * @return return an array of book
 * NOTE --> caller is responsible for ensuring all arguments are passed
 */
@@ -264,14 +315,11 @@ Library.prototype.search = function (title,author,pageCount,pubDate){
 	}
 
 	for(i; i < max; i++){
-		if(this.books[i].title.includes(title) && this.books[i].author.includes(author) && this.books[i].numberOfPages <= pageCount && this.books[i].publishDate.getTime() <= d){
+		if(this.books[i].title.indexOf(title) !== -1 && this.books[i].author.indexOf(author) !== -1 && this.books[i].numberOfPages <= pageCount && this.books[i].publishDate.getTime() <= d){
 			returnArr.push(this.books[i]);
 		}
 	}
 	return returnArr;
 };
 
-
-
 var lib = new Library();
-lib.saveState();
