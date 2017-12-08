@@ -1,3 +1,4 @@
+
 //book class
 /**
 * Book class
@@ -14,6 +15,6 @@ var Book = function (title,author,numberOfPages,publishDate){
 	this.numberOfPages = numberOfPages;
 	this.publishDate = new Date(publishDate);
 	this.toString = function(){
-		return "Title: " + this.title + "<br/>Author: " + this.author + "<br/>Page Count: " + this.numberOfPages + "<br/>Published: " + publishDate;
+		return "Title: " + this.title + "<br/>Author: " + this.author + "<br/>Page Count: " + this.numberOfPages + "<br/>Published: " + this.publishDate.toDateString();
 	};
 };
