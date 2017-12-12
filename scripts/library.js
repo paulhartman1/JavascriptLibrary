@@ -153,7 +153,7 @@ Library.prototype.getAuthors = function () {
         max = this.books.length;
 
     for (i; i < max; i++) {
-        if (!authors.indexOf(this.books[i].author) === -1) {
+        if (authors.indexOf(this.books[i].author) === -1) {
             authors.push(this.books[i].author);
         }
     }
@@ -321,5 +321,3 @@ Library.prototype.search = function (title, author, pageCount, pubDate) {
     }
     return returnArr;
 };
-
-var lib = new Library();

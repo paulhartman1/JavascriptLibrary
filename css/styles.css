@@ -1,0 +1,14 @@
+.hidden {
+	display: none;
+}
+
+.shown {
+	display: inline-block;
+}
+
+.jumbotron {
+	background-image: url("../resources/books.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
