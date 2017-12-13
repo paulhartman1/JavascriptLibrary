@@ -35,8 +35,10 @@
 
 		<div class="jumbotron">
 			<div class="container text-center ">
-				<h1>Library</h1>
-				<p>Library data</p>
+				<h2><span class="data-book book-title"></span></h2>
+				<h2><span class="data-book book-author"></span></h2>
+				<h3><span class="data-book book-pages"></span></h3>
+				<h3><span class="data-book book-pubDate"></span></h3>
 			</div>
 		</div>
 
@@ -122,13 +124,30 @@
 
 							<div class="input-group">
 								<span class="input-group-addon">Publish Date</span>
-								<input class="form-control"  name="date" id="date-input"placeholder="MM/DD/YYY" type="text"/>
+								<input class="form-control"  name="date" id="date-input"placeholder="MM/DD/YYYY" type="text"/>
 								<span class="input-group-addon input-enter"  id="date-enter"><a>ENTER</a></span>
 							</div>
 
 						</div>
 						<div id="book-remove" class="tab-pane fade">
 							<h3>Remove A Book</h3>
+
+
+							<div class="input-group" >
+								<span class="input-group-addon">Title</span>
+								<input  type="text" class="form-control" id="remove-title-input"name="" placeholder="Enter the title">
+								<span class="input-group-addon input-enter"  id="remove-title-enter"><a>ENTER</a></span>
+							</div>
+
+							<br  />
+
+							<div class="input-group" >
+								<span class="input-group-addon">Author</span>
+								<input  type="text" class="form-control" id="remove-author-input"name="" placeholder="Enter the author's name">
+								<span class="input-group-addon input-enter"  id="remove-auhtor-enter"><a>ENTER</a></span>
+							</div>
+
+
 						</div>
 					</div>
 
@@ -146,8 +165,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="scripts/book.js"></script>
 	<script src="scripts/library.js"></script>
-	<script src="scripts/someBooks.js"></script>
+
 	<script src="scripts/scripts.js"></script>
+	<script src="scripts/someBooks.js"></script>
 	<script src="scripts/test.js"></script>
 
 </body>

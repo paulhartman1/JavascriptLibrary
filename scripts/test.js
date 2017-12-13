@@ -143,5 +143,4 @@ console.log(lib.getBookByTitle(undefined));
 console.log(lib.getBookByTitle(null));
 console.log(lib.getBookByTitle(456));
 lib.addBook(new Book("123456","Paul Hartman",123,"Dec 12, 1978"));
-document.getElementById("test").innerHTML = lib.listAllBooks();
 lib.saveState();

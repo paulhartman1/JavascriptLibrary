@@ -10,5 +10,30 @@
 	background-image: url("../resources/books.png");
 	background-repeat: no-repeat;
 	background-size: cover;
-
+	min-height: 304px;
+ overflow: hidden;
 }
+
+.error {
+	background-color: #bb1d24;
+	color: white;
+}
+
+.data-book{
+	color:rgba(#3a3a45, 0.9);
+}
+	.book-title{
+		font-size: 1.3em;
+
+	}
+	.book-author{
+		font-size: .9em;
+		text-decoration: underline;
+
+	}
+	.book-pages {
+
+	}
+	.book-pubDate {
+
+	}
