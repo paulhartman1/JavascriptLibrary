@@ -1,15 +1,5 @@
 
-$(function(){
-	window.lib = new Library();
-	// hide search bars for finding a book
-	$('#title-search').hide();
-	$('#author-search').hide();
-	$('#page-count-search').hide();
-	$('#pub-date-search').hide();
-	updateBadges();
-	resetInputs();
-	checkBoxevents();
-});
+
 
 var checkBoxevents = function() {
 	// event delegator for checkboxes in 'find a book'
@@ -48,10 +38,69 @@ $('.book-add-multi').on('click',function(){
 });
 
 $('#random-book-btn').on('click',function(){
-	var b = lib.getRandomBook();
-	var date = new Date(b.publishDate).toDateString();
-	$('.book-title').text(b.title);
-	$('.book-author').text(b.author);
-	$('.book-pages').text(b.numberOfPages + " pages");
-	$('.book-pubDate').text(date.substring(4));
+	displayBook(lib.getRandomBook());
+});
+
+var displayBook = function(book){
+	var date = new Date(book.publishDate).toDateString();
+	$('.data-book-title').text(book.title);
+	$('.data-book-author').text(book.author);
+	$('.data-book-pages').text(book.numberOfPages + " pages");
+	$('.data-book-pubDate').text(date.substring(4));
+};
+
+$('#add-more-books').on('click',function(){
+	$('.new-book:last').clone().appendTo($('#book-add'));
+	resetInputs();
+	$('#add-book').text("Add Books");
+});
+
+$('#add-book').on('click',function(){
+	var titles = [],authors = [], pages = [], pubDates = [];
+
+$('.title-input').each(function() {
+	titles.push($(this).val());
+});
+$('.author-input').each(function() {
+	authors.push($(this).val());
+});
+$('.page-count-input').each(function() {
+	pages.push($(this).val());
+});
+$('.date-input').each(function() {
+	pubDates.push($(this).val().toString());
+});
+
+for(var i = 0; i < titles.length; i++){
+	var bk = new Book(titles[i],authors[i],parseInt(pages[i]),pubDates[i]);
+	lib.addBook(bk);
+}
+	lib.saveState();
+	updateBadges();
+});
+
+$('#remove-author-enter').on('click',function(){
+	lib.removeBookByAuthor($('#remove-author-input').val());
+	lib.saveState();
+	updateBadges();
+	$('#remove-author-input').val("");
+});
+
+$('#remove-title-enter').on('click',function(){
+	lib.removeBookByTitle($('#remove-title-input').val());
+	lib.saveState();
+	updateBadges();
+	$('#remove-title-input').val("");
+});
+
+$(function(){
+	window.lib = new Library();
+	// hide search bars for finding a book
+	$('#title-search').hide();
+	$('#author-search').hide();
+	$('#page-count-search').hide();
+	$('#pub-date-search').hide();
+	updateBadges();
+	resetInputs();
+	checkBoxevents();
 });

@@ -11,7 +11,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	min-height: 304px;
- overflow: hidden;
+	overflow: hidden;
 }
 
 .error {
@@ -22,25 +22,25 @@
 .data-book{
 	color:rgba(#3a3a45, 0.9);
 }
-	.book-title{
-		font-size: 1.3em;
+.data-book-title{
+	font-size: 1.3em;
 
-	}
-	.book-author{
-		font-size: .9em;
-		text-decoration: underline;
+}
+.data-book-author{
+	font-size: .9em;
+	text-decoration: underline;
 
-	}
-	.book-pages {
+}
+.book-pages {
 
-	}
-	.book-pubDate {
+}
+.book-pubDate {
 
-	}
+}
 .input-group {
-
+	float: left;
 }
 .add-book-btn-group{
 	margin-top: 5px;
-	text-align: right;
+
 }

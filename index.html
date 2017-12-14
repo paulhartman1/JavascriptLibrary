@@ -35,10 +35,10 @@
 
 		<div class="jumbotron">
 			<div class="container text-center ">
-				<h2><span class="data-book book-title"></span></h2>
-				<h2><span class="data-book book-author"></span></h2>
-				<h3><span class="data-book book-pages"></span></h3>
-				<h3><span class="data-book book-pubDate"></span></h3>
+				<h2><span class="data-book data-book-title"></span></h2>
+				<h2><span class="data-book data-book-author"></span></h2>
+				<h3><span class="data-book data-book-pages"></span></h3>
+				<h3><span class="data-book data-book-pubDate"></span></h3>
 			</div>
 		</div>
 
@@ -102,44 +102,41 @@
 						</form>
 					</div>
 					<div id="book-add" class="tab-pane fade">
+
 						<h3>Add A Book</h3>
-						<div class="row book-form">
-							<div class="col-md-8">
-								<form class="input-form new-book">
-									<div class="input-group new-book-input" >
-										<span class="input-group-addon">Title</span>
-										<input  type="text" class="form-control title-input" id=""  name="" placeholder="Enter the book's title">
-										<!-- <span class="input-group-addon input-enter title-enter"  id=""><a>ENTER</a></span> -->
-									</div>
-
-									<div class="input-group new-book-input" >
-										<span class="input-group-addon">Author</span>
-										<input  type="text" class="form-control author-input" id=""name="" placeholder="Enter the book's author">
-										<!-- <span class="input-group-addon input-enter author-enter"  id=""><a>ENTER</a></span> -->
-									</div>
-
-									<div class="input-group new-book-input" >
-										<span class="input-group-addon">Number of Pages</span>
-										<input  type="text" class="form-control page-count-input" id=""name="" placeholder="Enter the number of pages in the book">
-										<!-- <span class="input-group-addon input-enter page-count-enter"  id=""><a>ENTER</a></span> -->
-									</div>
-
-									<div class="input-group new-book-input">
-										<span class="input-group-addon">Publish Date</span>
-										<input class="form-control date-input"  name="date" id=""placeholder="MM/DD/YYYY" type="text"/>
-									</div>
-									<br />
-								</form>
-							</div>
-							<div class="btn-group-vertical add-book-btn-group col-md-4">
-								<button type="button" class="btn btn-primary book-add">Add Book</button>
-								<button type="button" class="btn btn-basic book-add-multi">Add More Books</button>
-							</div>
+						<div class="btn-group add-book-btn-group">
+						  <button type="button" class="btn btn-primary" id="add-book">Add Book</button>
+						  <button type="button" class="btn btn-primary" id="add-more-books">Add More Books</button>
 						</div>
 
+							<form class="input-form new-book">
+								<div class="input-group new-book-input" >
+									<span class="input-group-addon">Title</span>
+									<input  type="text" class="form-control title-input" id=""  name="" placeholder="Enter the book's title">
+								</div>
+
+								<div class="input-group new-book-input" >
+									<span class="input-group-addon">Author</span>
+									<input  type="text" class="form-control author-input" id=""name="" placeholder="Enter the book's author">
+									<!-- <span class="input-group-addon input-enter author-enter"  id=""><a>ENTER</a></span> -->
+								</div>
+
+								<div class="input-group new-book-input" >
+									<span class="input-group-addon">Number of Pages</span>
+									<input  type="text" class="form-control page-count-input" id=""name="" placeholder="Enter the number of pages in the book">
+									<!-- <span class="input-group-addon input-enter page-count-enter"  id=""><a>ENTER</a></span> -->
+								</div>
+
+								<div class="input-group new-book-input">
+									<span class="input-group-addon">Publish Date</span>
+									<input class="form-control date-input"  name="date" id=""placeholder="MM/DD/YYYY" type="text"/>
+									<!-- <span class="input-group-addon input-enter date-enter"><a>ENTER</a></span> -->
+									<!-- <span class="input-group-addon more-enter"  id=""><a>Add More Books</a></span> -->
+								</div>
+						<br />
+						</div>
 						<div id="book-remove" class="tab-pane fade">
 							<h3>Remove A Book</h3>
-
 							<div class="input-group" >
 								<span class="input-group-addon">Title</span>
 								<input  type="text" class="form-control" id="remove-title-input"name="" placeholder="Enter the title">
@@ -151,10 +148,8 @@
 							<div class="input-group" >
 								<span class="input-group-addon">Author</span>
 								<input  type="text" class="form-control" id="remove-author-input"name="" placeholder="Enter the author's name">
-								<span class="input-group-addon input-enter"  id="remove-auhtor-enter"><a>ENTER</a></span>
+								<span class="input-group-addon input-enter"  id="remove-author-enter"><a>ENTER</a></span>
 							</div>
-
-
 						</div>
 					</div>
 
