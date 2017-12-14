@@ -1,7 +1,6 @@
 
-//var lib = new Library();
 $(function(){
-window.lib = new Library();
+	window.lib = new Library();
 	// hide search bars for finding a book
 	$('#title-search').hide();
 	$('#author-search').hide();
@@ -10,7 +9,6 @@ window.lib = new Library();
 	updateBadges();
 	resetInputs();
 	checkBoxevents();
-	addBookEvents();
 });
 
 var checkBoxevents = function() {
@@ -26,72 +24,12 @@ var checkBoxevents = function() {
 	});
 };
 
-var addBookEvents = function() {
-	var title,author,pageCount,pDate;
-
-	//disable adding text to boxes until previous box has valid text
-	//refactor using proxy or delegation
-	$('#title-enter').on('click',function(){
-		title = $('#title-input').val();
-		if(title.length > 0 ){
-			$('#title-input').prop('disabled',true);
-			$('#author-input').prop('disabled',false);
-			$('#author-enter').show();
-			$('#title-enter').hide();
-		} else {
-			$('#title-input').addClass('error');
-		}
-	});
-
-	$('#author-enter').on('click',function(){
-		author = $('#author-input').val();
-		if(author.length > 0){
-			$('#author-input').prop('disabled',true);
-			$('#page-count-input').prop('disabled',false);
-			$('#author-enter').hide();
-			$('#page-count-enter').show();
-		} else {
-			$('#author-input').addClass('error');
-		}
-	});
-
-	$('#page-count-enter').on('click',function(){
-		var pages = $('#page-count-input').val();
-		pageCount = Number.parseInt(pages);
-		if(Number.isInteger(pageCount)){
-			$('#page-count-input').prop('disabled',true);
-			$('#date-input').prop('disabled',false);
-			$('#date-enter').show();
-			$('#page-count-enter').hide();
-		} else {
-			$('#page-count-input').addClass('error');
-		}
-
-		$('#date-enter').on('click',function() {
-			pDate = new Date(Date.parse($('#date-input').val()));
-			if(isNaN(pDate)){
-				$('#date-input').addClass('error');
-			} else {
-				lib.addBook(new Book(title,author,pageCount,pDate));
-				updateBadges();
-				resetInputs();
-			}
-		})
-	});
-};
-
 var resetInputs = function() {
-	$('#title-input').prop('disabled',false);
-	$('#title-enter').show();
-	$('#author-input').prop('disabled',true);
-	$('#page-count-input').prop('disabled',true);
-	$('#date-input').prop('disabled',true);
-	$('#title-input').val("");
-	$('#author-input').val("");
-	$('#page-count-input').val("");
-	$('#date-input').val("");
+	$('.title-input:last').val("");
+	$('.author-input:last').val("");
+	$('.page-count-input:last').val("");
+	$('.date-input:last').val("");
 };
-
 
 var updateBadges = function() {
 	lib.saveState();
@@ -99,12 +37,14 @@ var updateBadges = function() {
 	$('#author-count').text(lib.getAuthors().length);
 };
 
-
-
 $('#random-book-btn').mouseenter(function(){
 	this.innerHTML = "Get a random book";
 }).mouseleave(function() {
 	this.innerHTML = "I Feel Lucky";
+});
+
+$('.book-add-multi').on('click',function(){
+	$('.book-form:last').clone().appendTo($('.book-form'));
 });
 
 $('#random-book-btn').on('click',function(){
@@ -114,16 +54,4 @@ $('#random-book-btn').on('click',function(){
 	$('.book-author').text(b.author);
 	$('.book-pages').text(b.numberOfPages + " pages");
 	$('.book-pubDate').text(date.substring(4));
-});
-
-var newBook = (function (str) {
-	var inst;
-	var returnStr = "";
-	function createInst() {
-		return new Object();
-	};
-
-	if(inst){ return inst};
-	createInst();
-	returnStr += str;
 });
