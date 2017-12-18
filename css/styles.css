@@ -29,18 +29,19 @@
 .data-book-author{
 	font-size: .9em;
 	text-decoration: underline;
-
 }
-.book-pages {
 
-}
-.book-pubDate {
-
-}
 .input-group {
 	float: left;
 }
 .add-book-btn-group{
 	margin-top: 5px;
+}
 
+.arrows {
+	font-size: 2em;
+	/* letter-spacing: 20px; */
+}
+.arrow-disable {
+	color: transparent;
 }

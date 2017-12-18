@@ -109,7 +109,7 @@ Handle edge cases maybe
 	new Book("Fear and Loathing in Las Vegas","Hunter S. Thompson",204,"1998"),
 	new Book("This is the only book not in the library","Paul Hartman",1,Date.now())
 	];
-	console.log(lib.addBooks(z));
+	lib.addBooks(z);
 
 
 /*

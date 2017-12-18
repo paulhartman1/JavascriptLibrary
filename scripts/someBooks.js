@@ -11,3 +11,12 @@ lib.addBook(new Book("A Clockwork Orange","Anthony Burgess",192,"1962"));
 lib.addBook(new Book("Naked Lunch"," William S. Burroughs",304,"1959"));
 lib.addBook(new Book("But I'm not Tired","My Kids",150000,"2010"));
 lib.addBook(new Book("Orign","Dan Brown",514,"October 3, 2017"));
+
+var z = [new Book("Fear and Loathing in Las Vegas","Hunter S. Thompson",204,"1998"),
+new Book("Hell's Angels: A Strange and Terrible Saga","Hunter S. Thompson",295,"2000"),
+new Book("The Rum Diary","Hunter S. Thompson",224,"Nov 01, 1999"),
+new Book("The Curse of Lono","Hunter S. Thompson",205,"October 01, 2005"),
+new Book("Fear and Loathing in Las Vegas","Hunter S. Thompson",204,"1998"),
+new Book("This is the only book not in the library","Paul Hartman",1,Date.now())
+];
+lib.addBooks(z);

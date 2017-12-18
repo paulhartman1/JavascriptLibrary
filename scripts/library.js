@@ -21,7 +21,6 @@ var Library;
     if (this.books.length === 0) {
       this.books = [];
     };
-
   }
 }());
 
@@ -213,7 +212,6 @@ Library.prototype.getBookByTitle = function (title) {
 * Public getBooksByAuthor
 * @param author - the Author name being searched for
 * @return an array of authors names
-* this needs some work
 */
 Library.prototype.getBooksByAuthor = function (author) {
   if (this.verify(author, "author")) {
@@ -319,16 +317,18 @@ Library.prototype.search = function (title, author, pageCount, pubDate) {
   var i = 0,
   max = this.books.length,
   returnArr = [];
-  var d = new Date(pubDate);
-  // if pubDate is not valid, set it to today's date - in milliseconds
-  if (isNaN(d)) {
-    d = Date.now();
-  }
+
+  //prepare data for search
+  title !== undefined ? title = title.toLowerCase() : title = " ";
+  author !== undefined ? author = author.toLowerCase() :   author = " ";
+  var tDate = new Date(pubDate).getTime();
 
   for (i; i < max; i++) {
-    if (this.books[i].title.indexOf(title) !== -1 && this.books[i].author.indexOf(author) !== -1 && this.books[i].numberOfPages <= pageCount && this.books[i].publishDate.getTime() <= d) {
+    var d = new Date(this.books[i].publishDate).getTime();
+    if (this.books[i].title.toLowerCase().indexOf(title) !== -1 && this.books[i].author.toLowerCase().indexOf(author) !== -1 && this.books[i].numberOfPages < pageCount && tDate > d) {
       returnArr.push(this.books[i]);
     }
   }
+
   return returnArr;
 };
