@@ -1,19 +1,6 @@
+var LibraryUI = function(){};
 
-
-var checkBoxevents = function() {
-	// event delegator for checkboxes in 'find a book'
-	$('#check').on('change','input',function() {
-		var el = $(this);
-		var elID = '#' + el.val();
-		if(el.is(':checked')){
-			$(elID).show();
-		} else {
-			$(elID).hide();
-		}
-	});
-};
-
-var clear = function() {
+LibraryUI.prototype.clear = function() {
 	$('.data-book-title').text("");
 	$('.data-book-author').text("");
 	$('.data-book-pages').text("");
@@ -22,7 +9,7 @@ var clear = function() {
 	resetInputs();
 }
 
-var resetInputs = function() {
+LibraryUI.prototype.resetInputs = function() {
 	$('.title-input:last').val("");
 	$('.author-input:last').val("");
 	$('.page-count-input:last').val("");
@@ -30,15 +17,14 @@ var resetInputs = function() {
 	displayIndex = 0;
 };
 
-var updateBadges = function() {
+LibraryUI.prototype.updateBadges = function() {
 	lib.saveState();
 	$('#book-count').text(lib.books.length);
 	$('#author-count').text(lib.getAuthors().length);
 	$('#title-count').text(lib.books.length);
 };
 
-var display = function(dis){
-
+LibraryUI.prototype.display = function(dis){
 	if(displayArray.length === 1){
 		$('.arrows').hide()
 	} else {
@@ -62,20 +48,38 @@ var display = function(dis){
 	}
 };
 
-var update = function(){
+LibraryUI.prototype.update = function(){
 	lib.saveState();
-	updateBadges();
+	this.updateBadges();
 };
 
 //event handlers
+LibraryUI.prototype._bindEvents = function(){
+	debugger;
+	$('#random-book-btn').on('click',$.proxy(lib.getRandomBook,this));
+};
+
+LibraryUI.prototype.checkBoxevents = function() {
+	// event delegator for checkboxes in 'find a book'
+	$('#check').on('change','input',function() {
+		var el = $(this);
+		var elID = '#' + el.val();
+		if(el.is(':checked')){
+			$(elID).show();
+		} else {
+			$(elID).hide();
+		}
+	});
+};
+
 $('.book-add-multi').on('click',function(){
 	$('.book-form:last').clone().appendTo($('.book-form'));
 });
 
-$('#random-book-btn').on('click',function(){
-	clear();
-	display(lib.getRandomBook());
-});
+// $('#random-book-btn').on('click',function(){
+// 	clear();
+// 	display(lib.getRandomBook());
+// });
 
 $('#random-author-btn').on('click',function(){
 	clear();
@@ -189,6 +193,7 @@ $('.data-book-author').on('click', function(){
 
 var init = function(){
 	window.lib = new Library();
+	window.libUI = new LibraryUI();
 	window.displayArray = [];
 	window.displayIndex = 0;
 
@@ -198,13 +203,15 @@ var init = function(){
 	$('#author-search').hide();
 	$('#page-count-search').hide();
 	$('#pub-date-search').hide();
-	updateBadges();
-	resetInputs();
-	checkBoxevents();
-	update();
+	libUI.updateBadges();
+	libUI.resetInputs();
+	libUI.checkBoxevents();
+	libUI.update();
 };
 // document ready
 $(function(){
+	window.lib = new Library();
+	window.libUI = new LibraryUI();
+	libUI._bindEvents();
 	init();
-
 });
