@@ -15,14 +15,18 @@ var Library;
       return instance;
     }
     instance = this;
+    this.init();
     // if Library data is available
     // create new [] books, if localStorage === null
-    this.retrieveLibrary();
-    if (this.books.length === 0) {
-      this.books = [];
-    };
   }
 }());
+
+Library.prototype.init = function(){
+  this.retrieveLibrary();
+  if (this.books.length === 0) {
+    this.books = [];
+  };
+};
 
 /**
 * Public retrieveLibrary

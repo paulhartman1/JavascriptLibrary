@@ -36,7 +36,6 @@
 				</div>
 			</div>
 		</nav>
-
 		<div class="jumbotron">
 			<div class="container text-center ">
 				<div class="arrows">
@@ -50,7 +49,6 @@
 				<h3><span class="data-book data-book-pubDate"></span></h3>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-md-4"> <!-- labels and badges et al -->
 				<h2>About the library</h2>
@@ -59,112 +57,82 @@
 				<span>Titles in the Library <span class="badge" id="title-count">-1</span></span><br>
 			</div>
 			<div class="col-md-8"> <!-- button functionality and method execution -->
-
 				<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" href="#book-find">Find A Book</a></li>
-					<li><a data-toggle="tab" href="#book-add">Add A Book</a></li>
+					<li><a class="btn-add-a-book" data-toggle="tab" href="#book-add">Add A Book</a></li>
 					<li><a data-toggle="tab" href="#book-remove">Remove A Book</a></li>
 				</ul>
-
 				<div class="tab-content">
 					<div id="book-find" class="tab-pane fade in active">
 						<h3>Find A Book</h3>
 						<form class="checkbox-form" id="check">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="check-title" value="title-search">By Title
+								<input type="checkbox" id="check-title" value="title-search">By Title</input>
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox"  id="check-author" value="author-search">By Author
+								<input type="checkbox"  id="check-author" value="author-search">By Author</input>
 							</label>
-
 							<label class="checkbox-inline">
-								<input type="checkbox" id="check-page-count" value="page-count-search">By Number of Pages
+								<input type="checkbox" id="check-page-count" value="page-count-search">By Number of Pages</input>
 							</label>
-
 							<label class="checkbox-inline">
-								<input type="checkbox" id="check-pub-date" value="pub-date-search">By Publish Date
+								<input type="checkbox" id="check-pub-date" value="pub-date-search">By Publish Date</input>
 							</label>
 						</form>
 						<form class="input-form" >
 							<div class="input-group" id="title-search" >
 								<span class="input-group-addon">Title</span>
-								<input id="title-search-box" type="text" class="form-control" name="" placeholder="Search for all or part of a book's title">
+								<input id="title-search-box" type="text" class="form-control" name="" placeholder="Search for all or part of a book's title" />
 							</div>
 							<div class="input-group" id="author-search">
 								<span class="input-group-addon">Author</span>
-								<input id="author-search-box"type="text" class="form-control" name="msg" placeholder="Search for all or part of a book's author">
+								<input id="author-search-box"type="text" class="form-control" name="msg" placeholder="Search for all or part of a book's author" />
 							</div>
 							<div class="input-group" id="page-count-search">
 								<span class="input-group-addon">Max Number of Pages</span>
-								<input id="pageCnt-search-box"type="text" class="form-control" name="msg" placeholder="Search by MAXIMUM number of pages">
+								<input id="pageCnt-search-box"type="text" class="form-control" name="msg" placeholder="Search by MAXIMUM number of pages" />
 							</div>
-
 							<div class="input-group" id="pub-date-search">
 								<span class="input-group-addon">Latest Publish Date</span>
 								<input id="date-search-box"class="form-control"  name="date" placeholder="MM/DD/YYY" type="date"/>
 							</div>
-
 							<button type="button" id="btn-search">Search</button>
 						</form>
 					</div>
 					<div id="book-add" class="tab-pane fade">
-
 						<h3>Add A Book</h3>
 						<div class="btn-group add-book-btn-group">
 							<button type="button" class="btn btn-primary" id="add-book">Add Book</button>
 							<button type="button" class="btn btn-primary" id="add-more-books">Add More Books</button>
 						</div>
-
-						<form class="input-form new-book">
-							<div class="input-group new-book-input" >
-								<span class="input-group-addon">Title</span>
-								<input  type="text" class="form-control title-input" id=""  name="" placeholder="Enter the book's title">
-							</div>
-
-							<div class="input-group new-book-input" >
-								<span class="input-group-addon">Author</span>
-								<input  type="text" class="form-control author-input" id=""name="" placeholder="Enter the book's author">
-								<!-- <span class="input-group-addon input-enter author-enter"  id=""><a>ENTER</a></span> -->
-							</div>
-
-							<div class="input-group new-book-input" >
-								<span class="input-group-addon">Number of Pages</span>
-								<input  type="text" class="form-control page-count-input" id=""name="" placeholder="Enter the number of pages in the book">
-								<!-- <span class="input-group-addon input-enter page-count-enter"  id=""><a>ENTER</a></span> -->
-							</div>
-
-							<div class="input-group new-book-input">
-								<span class="input-group-addon">Publish Date</span>
-								<input class="form-control date-input"  name="date" id="" type="date"/>
-								<!-- <span class="input-group-addon input-enter date-enter"><a>ENTER</a></span> -->
-								<!-- <span class="input-group-addon more-enter"  id=""><a>Add More Books</a></span> -->
-							</div>
-							<br />
+						<div>
+							<form  class="input-form">
+								<span id="new-book-form"></span>
+							</form>
 						</div>
-						<div id="book-remove" class="tab-pane fade">
-							<h3>Remove A Book</h3>
-							<div class="input-group" >
-								<span class="input-group-addon">Title</span>
-								<input  type="text" class="form-control" id="remove-title-input"name="" placeholder="Enter the title">
-								<span class="input-group-addon input-enter"  id="remove-title-enter"><a>ENTER</a></span>
-							</div>
-							<br  />
-							<div class="input-group" >
-								<span class="input-group-addon">Author</span>
-								<input  type="text" class="form-control" id="remove-author-input"name="" placeholder="Enter the author's name">
-								<span class="input-group-addon input-enter"  id="remove-author-enter"><a>ENTER</a></span>
-							</div>
+					</div><!-- end book add -->
+					<div id="book-remove" class="tab-pane fade">
+						<h3>Remove A Book</h3>
+						<div class="input-group" >
+							<span class="input-group-addon">Title</span>
+							<input  type="text" class="form-control" id="remove-title-input"name="" placeholder="Enter the title" />
+							<span class="input-group-addon input-enter"  id="remove-title-enter"><a>ENTER</a></span>
 						</div>
-					</div>
-
+						<br  />
+						<div class="input-group" >
+							<span class="input-group-addon">Author</span>
+							<input  type="text" class="form-control" id="remove-author-input"name="" placeholder="Enter the author's name" />
+							<span class="input-group-addon input-enter"  id="remove-author-enter"><a>ENTER</a></span>
+						</div>
+					</div> <!-- end book-remove -->
 				</div>
 			</div>
-		</div> <!-- end container -->
-		<script src="scripts/jquery.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script src="scripts/book.js"></script>
-		<script src="scripts/library.js"></script>
-		<script src="scripts/scripts.js"></script>
-
-	</body>
-	</html>
+		</div>
+	</div> <!-- end container -->
+	<script src="scripts/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="scripts/book.js"></script>
+	<script src="scripts/library.js"></script>
+	<script src="scripts/ui.js"></script>
+</body>
+</html>
