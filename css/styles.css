@@ -10,7 +10,7 @@
 	background-image: url("../resources/books.png");
 	background-repeat: no-repeat;
 	background-size: cover;
-	min-height: 304px;
+	min-height: 500px;
 	overflow: hidden;
 }
 
@@ -47,4 +47,17 @@
 }
 form span{
 	margin: 20px;
+}
+nav {
+	margin-top: 10px;
+}
+.book-cover {
+	width: 300px;
+	height: 450px;
+	background-color: #934937;
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 5px double darkgoldenrod;
 }

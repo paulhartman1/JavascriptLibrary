@@ -1,44 +1,59 @@
 
+/**
+* LibraryUI
+*@constructor
+*/
 var LibraryUI = function(){};
+/*
+*Variables scoped to the project for indexing at the ui
+* inputFormStr is the HTML definitition of the book input form fields
+*/
 LibraryUI.prototype.displayArray;
 LibraryUI.prototype.displayIndex;
 LibraryUI.prototype.inputFormStr;
 
-LibraryUI.prototype.checkBoxevents = function() {
-	// event delegator for checkboxes in 'find a book'
-	$('#check').on('change','input',function() {
-		var el = $(this);
-		var elID = '#' + el.val();
-		if(el.is(':checked')){
-			$(elID).show();
-		} else {
-			$(elID).hide();
-		}
-	});
-};
-
+/**
+*@function init
+* initialize the instance of the UI
+* the UI is dependent on an instance of the library object (window.lib)
+*/
 LibraryUI.prototype.init = function() {
 	window.lib = new Library();
-
+	lib.createBooks();
 	this.displayArray = [];
 	this.displayIndex = 0;
 	this.$arrows = $('.arrows');
 
-	// hide search bars for finding a book
+	// hide arrows and search bars for finding a book
 	this.$arrows.hide();
 	$('#title-search').hide();
 	$('#author-search').hide();
 	$('#page-count-search').hide();
 	$('#pub-date-search').hide();
+	// instantiate UI data fields
 	this.updateBadges();
 	this.resetInputs();
-	this.checkBoxevents();
+	this.checkBoxEvents();
+
+	// the book input form fields HTML definition
 	this.inputFormStr = '<div><div class="input-group new-book-input" ><span class="input-group-addon">Title</span><input  type="text" class="form-control title-input" id=""  name="" placeholder="Enter the book title"></div><div class="input-group new-book-input" ><span class="input-group-addon">Author</span><input  type="text" class="form-control author-input" id=""name="" placeholder="Enter the book author"></div><div class="input-group new-book-input" ><span class="input-group-addon">Number of Pages</span><input  type="text" class="form-control page-count-input" id=""name="" placeholder="Enter the number of pages in the book"></div><div class="input-group new-book-input"><span class="input-group-addon">Publish Date</span><input class="form-control date-input"  name="date" id="" type="date"/></div></div>';
 
-	//this.inputFormStr = "<p> Hello World </p>";
 	this._bindEvents();
 };
-
+/**
+*@function checkBoxEvents
+* event delegator for search functionality check boxes in 'find a book'
+*/
+LibraryUI.prototype.checkBoxEvents = function() {
+	$('#check').on('change','input',function() {
+		var el = $(this),
+		elID = '#' + el.val();
+		el.is(':checked') ? $(elID).show() : elID.hide();
+	});
+};
+/**
+*@function _bindEvents
+*/
 LibraryUI.prototype._bindEvents = function() {
 	$('.btn-all-books').on('click',$.proxy(this.showAllBooks, this));
 	$('.btn-authors').on('click',$.proxy(this.displayAuthors, this));
@@ -55,64 +70,18 @@ LibraryUI.prototype._bindEvents = function() {
 	$('#btn-search').on('click',$.proxy(this.search,this));
 };
 
+/**********EVENT DRIVEN METHODS**********/
+/**
+*@function addBookField
+* creates and displays one book entry form
+*/
 LibraryUI.prototype.addBookField = function () {
-
-	 $('#new-book-form').append(this.inputFormStr);
+	$('#new-book-form').append(this.inputFormStr);
 };
 
 LibraryUI.prototype.showAllBooks = function (){
-	this.clear();
 	this.displayArray = lib.books;
 	this.display(this.displayArray[this.displayIndex]);
-};
-
-LibraryUI.prototype.clear = function() {
-	$('.data-book-title').text("");
-	$('.data-book-author').text("");
-	$('.data-book-pages').text("");
-	$('.data-book-pubDate').text("");
-	this.displayArray =  [];
-	this.resetInputs();
-}
-
-LibraryUI.prototype.resetInputs = function() {
-	$('.title-input:last').val("");
-	$('.author-input:last').val("");
-	$('.page-count-input:last').val("");
-	$('.date-input:last').val("");
-	this.displayIndex = 0;
-	$('#new-book-form').empty();
-};
-
-LibraryUI.prototype.updateBadges = function() {
-	lib.saveState();
-	$('#book-count').text(lib.books.length);
-	$('#author-count').text(lib.getAuthors().length);
-	$('#title-count').text(lib.books.length);
-};
-
-LibraryUI.prototype.display = function(dis){
-	if(this.displayArray.length <= 1){
-		this.$arrows.hide()
-	} else {
-		$('#data-book-counter-subtotal').text(this.displayIndex+1 + " ");
-		$('#data-book-counter-total').text(" " + this.displayArray.length);
-		this.$arrows.show();
-	}
-
-	if(typeof dis === 'string'){
-		$('.data-book-author').text(dis);
-	} else {
-		var date = new Date(dis.publishDate).toDateString();
-		var pageString = 'Pages';
-		if(dis.numberOfPages === 1) {
-			pageString = 'Page';
-		}
-		$('.data-book-title').text(dis.title);
-		$('.data-book-author').text(dis.author);
-		$('.data-book-pages').text(dis.numberOfPages + " "+ pageString);
-		$('.data-book-pubDate').text(date.substring(4));
-	}
 };
 
 LibraryUI.prototype.addMoreBooks = function () {
@@ -121,13 +90,13 @@ LibraryUI.prototype.addMoreBooks = function () {
 };
 
 LibraryUI.prototype.displayRandomBook = function (){
-	this.clear();
-	this.display(lib.getRandomBook());
+	this.displayArray[0] = lib.getRandomBook();
+	this.display(this.displayArray[0]);
 };
 
 LibraryUI.prototype.displayRandomAuthor = function(){
-	this.clear();
-	this.display(lib.getRandomAuthorName());
+	this.displayArray[0] = lib.getRandomAuthorName();
+	this.display(this.displayArray[0]);
 };
 
 LibraryUI.prototype.addBook = function(){
@@ -147,27 +116,29 @@ LibraryUI.prototype.addBook = function(){
 	});
 
 	for(var i = 0; i < titles.length; i++){
-		var bk = new Book(titles[i],authors[i],parseInt(pages[i]),pubDates[i]);
-		lib.addBook(bk);
+		lib.addBook(new Book(titles[i],authors[i],parseInt(pages[i]),pubDates[i]));
 	}
 	this.updateBadges();
 	this.resetInputs();
 };
 
 LibraryUI.prototype.removeBookByAuthor = function () {
-	lib.removeBookByAuthor($('#remove-author-input').val());
+	var authorToRemove = $('#remove-author-input').val();
+	lib.removeBookByAuthor(authorToRemove);
 	this.updateBadges();
 	$('#remove-author-input').val("");
+	this.showAllBooks();
 };
 
 LibraryUI.prototype.removeBookByTitle = function () {
-	lib.removeBookByTitle($('#remove-title-input').val());
+	var titleToRemove = $('#remove-title-input').val();
+	lib.removeBookByTitle(titleToRemove);
 	this.updateBadges();
 	$('#remove-title-input').val("");
+	this.showAllBooks();
 };
 
 LibraryUI.prototype.displayAuthors = function(){
-	this.clear();
 	this.displayArray = lib.getAuthors();
 	this.display(this.displayArray[this.displayIndex]);
 };
@@ -216,9 +187,65 @@ LibraryUI.prototype.search = function () {
 
 LibraryUI.prototype.displayRelAuthors = function() {
 	var author = $('.data-book-author').text();
-	this.clear();
 	this.displayArray = lib.getBooksByAuthor(author);
 	this.display(this.displayArray[this.displayIndex]);
+};
+
+LibraryUI.prototype.updateBadges = function() {
+	lib.saveState();
+	$('#book-count').text(lib.books.length);
+	$('#author-count').text(lib.getAuthors().length);
+	$('#title-count').text(lib.books.length);
+};
+
+LibraryUI.prototype.display = function(dis){
+	this.clear();
+	if(this.displayArray.length === 0){
+		$('.data-book-title').text("Sorry, there is nothing to display");
+		return;
+	}
+	if(this.displayArray.length === 1){
+		this.$arrows.hide()
+	} else {
+		$('#data-book-counter-subtotal').text(this.displayIndex+1 + " ");
+		$('#data-book-counter-total').text(" " + this.displayArray.length);
+		this.$arrows.show();
+	}
+
+	if(typeof dis === 'string'){
+		$('.data-book-author').text(dis);
+	} else {
+		var date = new Date(dis.publishDate).toDateString();
+		var pageString = 'Pages';
+		if(dis.numberOfPages === 1) {
+			pageString = 'Page';
+		}
+		$('.data-book-title').text(dis.title);
+		$('.data-book-author').text(dis.author);
+		$('.data-book-pages').text(dis.numberOfPages + " "+ pageString);
+		$('.data-book-pubDate').text(date.substring(4));
+	}
+};
+/**
+*@function clear
+*/
+LibraryUI.prototype.clear = function() {
+	$('.data-book-title').text("");
+	$('.data-book-author').text("");
+	$('.data-book-pages').text("");
+	$('.data-book-pubDate').text("");
+	this.$arrows.hide();
+	// this.displayIndex = 0;
+}
+
+LibraryUI.prototype.resetInputs = function() {
+	$('.title-input:last').val("");
+	$('.author-input:last').val("");
+	$('.page-count-input:last').val("");
+	$('.date-input:last').val("");
+	this.displayArray =  [];
+	this.displayIndex = 0;
+	$('#new-book-form').empty();
 };
 
 $(function(){

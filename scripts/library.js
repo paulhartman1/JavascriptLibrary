@@ -23,6 +23,7 @@ var Library;
 
 Library.prototype.init = function(){
   this.retrieveLibrary();
+  this.createBooks();
   if (this.books.length === 0) {
     this.books = [];
   };
@@ -239,10 +240,11 @@ Library.prototype.getBooksByAuthor = function (author) {
 * @return null if no books in the Library, otherwise returns a random author name
 */
 Library.prototype.getRandomAuthorName = function () {
-  var rndmAuthor = null,
-  len = this.books.length;
+  var authors = this.getAuthors(),
+  rndmAuthor = null,
+  len = authors.length;
   if (len > 0) {
-    rndmAuthor = this.books[Math.floor((Math.random() * len))].author;
+    rndmAuthor = this.books[Math.floor((Math.random() * len))];
   }
   return rndmAuthor;
 };
@@ -335,4 +337,25 @@ Library.prototype.search = function (title, author, pageCount, pubDate) {
   }
 
   return returnArr;
+};
+
+Library.prototype.createBooks = function () {
+  this.addBook(new Book("A","A person",25,"Jan 1, 2001"));
+	this.addBook(new Book("B","B person",96,"2002/02/12"));
+	this.addBook(new Book("What?","My Kids",10000,"12/03/2013"));
+	this.addBook(new Book("How to Cook for Forty Humans and then Eat Them","Serak the Preparer",275,"Jan 1, 2586"));
+	this.addBook(new Book("Godel, Escher, Bach","Douglas Hofstadter",777,"Jan 2, 1979"));
+	this.addBook(new Book("The DaVinci Code","Dan Brown",454,"April 01, 2003"));
+	this.addBook(new Book("Angels and Demons","Dan Brown",514,"October 3, 2000"));
+	this.addBook(new Book("A Clockwork Orange","Anthony Burgess",192,"1962"));
+	this.addBook(new Book("Orign","Dan Brown",514,"October 3, 2017"));
+
+	var z = [new Book("Fear and Loathing in Las Vegas","Hunter S. Thompson",204,"1998"),
+	new Book("Hell's Angels: A Strange and Terrible Saga","Hunter S. Thompson",295,"2000"),
+	new Book("The Rum Diary","Hunter S. Thompson",224,"Nov 01, 1999"),
+	new Book("The Curse of Lono","Hunter S. Thompson",205,"October 01, 2005"),
+	new Book("Fear and Loathing in Las Vegas","Hunter S. Thompson",204,"1998"),
+	new Book("This is the only book not in the library","Paul Hartman",1,Date.now())
+];
+this.addBooks(z);
 };
