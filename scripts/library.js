@@ -24,9 +24,9 @@ var Library;
 Library.prototype.init = function(){
   this.retrieveLibrary();
   this.createBooks();
-  if (this.books.length === 0) {
-    this.books = [];
-  };
+  // if (this.books.length === 0) {
+  //   this.books = [];
+  // };
 };
 
 /**

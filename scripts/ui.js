@@ -13,7 +13,7 @@ var LibraryUI = function(){};
 */
 LibraryUI.prototype.init = function() {
 	window.lib = new Library();
-	lib.createBooks();
+	//lib.createBooks();
 	this.displayArray = [];
 	this.displayIndex = 0;
 	this.$arrows = $('.arrows');
@@ -42,7 +42,7 @@ LibraryUI.prototype.init = function() {
 		$('#check').on('change','input',function() {
 			var el = $(this),
 			elID = '#' + el.val();
-			el.is(':checked') ? $(elID).show() : elID.hide();
+			el.is(':checked') ? $(elID).show() : $(elID).hide();
 		});
 	};
 	/**
@@ -198,6 +198,9 @@ LibraryUI.prototype.init = function() {
 
 	LibraryUI.prototype.display = function(dis){
 		this.clear();
+		if($('#data-book-counter-subtotal').text() > this.displayArray.length){
+			this.displayIndex = 0;
+		}
 		if(this.displayArray.length === 0){
 			$('.data-book-title').text("Sorry, there is nothing to display");
 			return;
