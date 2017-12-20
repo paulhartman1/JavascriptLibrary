@@ -54,10 +54,16 @@ nav {
 .book-cover {
 	width: 300px;
 	height: 450px;
-	background-color: #934937;
 	text-align: center;
 	margin: 0 auto;
 	padding: 10px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.45);
 	border: 5px double darkgoldenrod;
+	position: relative;
+}
+.book-author-position{
+	position: absolute;
+	width: 100%;
+	bottom : 5px;
+	right: 0%;
 }

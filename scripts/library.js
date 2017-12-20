@@ -244,7 +244,8 @@ Library.prototype.getRandomAuthorName = function () {
   rndmAuthor = null,
   len = authors.length;
   if (len > 0) {
-    rndmAuthor = this.books[Math.floor((Math.random() * len))];
+    var index = Math.floor((Math.random() * len))
+    rndmAuthor = authors[index];
   }
   return rndmAuthor;
 };
