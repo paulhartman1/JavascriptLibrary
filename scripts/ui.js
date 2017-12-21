@@ -85,12 +85,15 @@ LibraryUI.prototype.addMoreBooks = function () {
 };
 
 LibraryUI.prototype.displayRandomBook = function (){
+	this.clear();
+	this.displayArray = [];
 	this.displayArray[0] = lib.getRandomBook();
 	this.display(this.displayArray[0]);
 };
 
 LibraryUI.prototype.displayRandomAuthor = function(){
 	this.clear();
+	this.displayArray = [];
 	var name = lib.getRandomAuthorName();
 	//alert(name);
 	this.displayArray[0] = name;
@@ -255,13 +258,13 @@ LibraryUI.prototype._getRandomColor = function () {
 *@function clear
 */
 LibraryUI.prototype.clear = function() {
+	this.$arrows.hide();
 	$('#book-display').removeClass('book-cover');
 	$('#book-display').css("background-color","transparent");
 	$('.data-book-title').text("");
 	$('.data-book-author').text("");
 	$('.data-book-pages').text("");
 	$('.data-book-pubDate').text("");
-	this.$arrows.hide();
 }
 
 LibraryUI.prototype.resetInputs = function() {
