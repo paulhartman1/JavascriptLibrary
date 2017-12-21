@@ -10,7 +10,7 @@
 	background-image: url("../resources/books.png");
 	background-repeat: no-repeat;
 	background-size: cover;
-	min-height: 304px;
+	min-height: 500px;
 	overflow: hidden;
 }
 
@@ -29,18 +29,41 @@
 .data-book-author{
 	font-size: .9em;
 	text-decoration: underline;
-
 }
-.book-pages {
 
-}
-.book-pubDate {
-
-}
 .input-group {
 	float: left;
 }
 .add-book-btn-group{
 	margin-top: 5px;
+}
 
+.arrows {
+	font-size: 2em;
+	/* letter-spacing: 20px; */
+}
+.arrow-disable {
+	color: transparent;
+}
+form span{
+	margin: 20px;
+}
+nav {
+	margin-top: 10px;
+}
+.book-cover {
+	width: 300px;
+	height: 450px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.45);
+	border: 5px double darkgoldenrod;
+	position: relative;
+}
+.book-author-position{
+	position: absolute;
+	width: 100%;
+	bottom : 5px;
+	right: 0%;
 }
